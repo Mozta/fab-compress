@@ -1,0 +1,285 @@
+@import "tailwindcss";
+
+@theme {
+  --color-fab-50: #fee6ec;
+  --color-fab-100: #fdceda;
+  --color-fab-200: #fb9db4;
+  --color-fab-300: #fa6b8f;
+  --color-fab-400: #f83a6a;
+  --color-fab-500: #f60944;
+  --color-fab-600: #c50737;
+  --color-fab-700: #940529;
+  --color-fab-800: #62041b;
+  --color-fab-900: #31020e;
+  --color-fab-950: #22010a;
+
+  --color-surface-900: #0f1117;
+  --color-surface-800: #161822;
+  --color-surface-700: #1e2030;
+  --color-surface-600: #272a3d;
+  --color-surface-500: #353850;
+
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Light theme overrides */
+[data-theme="light"] {
+  --color-surface-900: #f0f2f5;
+  --color-surface-800: #ffffff;
+  --color-surface-700: #e8eaef;
+  --color-surface-600: #d1d5de;
+  --color-surface-500: #b0b5c3;
+  --color-fab-300: #f83a6a;
+  --color-fab-400: #f60944;
+  --color-fab-500: #f83a6a;
+  --color-fab-600: #f60944;
+}
+
+/* Smooth theme transition */
+*,
+*::before,
+*::after {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Light theme text adjustments */
+[data-theme="light"] .text-white {
+  color: #1a1d2e;
+}
+
+[data-theme="light"] .text-gray-300 {
+  color: #4a5068;
+}
+
+[data-theme="light"] .text-gray-400 {
+  color: #5c6280;
+}
+
+[data-theme="light"] .text-gray-500 {
+  color: #6b7194;
+}
+
+[data-theme="light"] .text-gray-600 {
+  color: #7a80a0;
+}
+
+/* Light mode: disabled button fix */
+[data-theme="light"] .disabled-btn {
+  background-color: #d1d5de;
+  color: #8b90a8;
+}
+
+/* Light mode: inputs with dark bg fix */
+[data-theme="light"] input[type="number"] {
+  background-color: #f0f2f5 !important;
+  border-color: #c0c5d2 !important;
+  color: #2a2d3e !important;
+}
+
+/* Selection styling */
+::selection {
+  background-color: rgba(246, 9, 68, 0.3);
+  color: inherit;
+}
+
+::-moz-selection {
+  background-color: rgba(246, 9, 68, 0.3);
+  color: inherit;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-surface-800);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-surface-500);
+  border-radius: 3px;
+}
+
+[data-theme="light"] ::-webkit-scrollbar-track {
+  background: #e8eaef;
+}
+
+[data-theme="light"] ::-webkit-scrollbar-thumb {
+  background: #b0b5c3;
+}
+
+/* Custom range slider */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  width: 100%;
+  height: 20px;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 3px;
+  background: linear-gradient(to right, var(--color-fab-500), var(--color-fab-300));
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: white;
+  margin-top: -7px;
+  box-shadow: 0 0 10px rgba(246, 9, 68, 0.5);
+  transition: box-shadow 0.2s;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  box-shadow: 0 0 16px rgba(246, 9, 68, 0.8);
+}
+
+input[type="range"]::-moz-range-track {
+  height: 6px;
+  border-radius: 3px;
+  background: linear-gradient(to right, var(--color-fab-500), var(--color-fab-300));
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: white;
+  border: none;
+  box-shadow: 0 0 10px rgba(246, 9, 68, 0.5);
+}
+
+/* Drag animations */
+@keyframes pulse-border {
+
+  0%,
+  100% {
+    border-color: var(--color-fab-400);
+  }
+
+  50% {
+    border-color: var(--color-fab-600);
+  }
+}
+
+.drag-active {
+  animation: pulse-border 1s ease-in-out infinite;
+}
+
+/* Fade in animation */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.4s ease-out forwards;
+}
+
+/* Shimmer effect on progress */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.shimmer-bar {
+  background: linear-gradient(90deg,
+      var(--color-fab-500) 0%,
+      var(--color-fab-300) 50%,
+      var(--color-fab-500) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+/* Floating icon animation for DropZone */
+@keyframes float-icon {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.animate-float-icon {
+  animation: float-icon 3s ease-in-out infinite;
+}
+
+/* Background blob floating animations */
+@keyframes float-slow {
+
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  33% {
+    transform: translate(20px, -15px);
+  }
+
+  66% {
+    transform: translate(-10px, 10px);
+  }
+}
+
+@keyframes float-medium {
+
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  33% {
+    transform: translate(-15px, 20px);
+  }
+
+  66% {
+    transform: translate(10px, -10px);
+  }
+}
+
+@keyframes float-fast {
+
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(15px, -20px);
+  }
+}
+
+.animate-float-slow {
+  animation: float-slow 12s ease-in-out infinite;
+}
+
+.animate-float-medium {
+  animation: float-medium 10s ease-in-out infinite;
+}
+
+.animate-float-fast {
+  animation: float-fast 8s ease-in-out infinite;
+}
