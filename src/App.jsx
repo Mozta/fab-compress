@@ -168,14 +168,18 @@ export default function App() {
         <footer className="mt-16 text-center text-gray-400 text-xs space-y-2">
           <p>FabCompress — Compresión 100% local en tu navegador</p>
           <p>Tus imágenes nunca salen de tu dispositivo</p>
-          <p className="mt-3">
+          <p className="mt-3">Si te fue útil, puedes invitarme un café</p>
+          <p className="mt-2">
             <a
-              href="https://buymeacoffee.com/mozta"
+              href="https://www.buymeacoffee.com/mozta"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full border border-gray-400/30 text-gray-400 hover:border-fab-500/50 hover:text-fab-400 transition-all duration-200 text-xs"
             >
-              Si te fue útil, puedes invitarme un café ☕ 
+              <img
+                src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=☕&slug=mozta&button_colour=f60944&font_colour=ffffff&font_family=Cookie&outline_colour=000000&coffee_colour=FFDD00"
+                alt="Buy me a coffee"
+                className="h-10 mx-auto hover:opacity-90 transition-opacity duration-200"
+              />
             </a>
           </p>
           <p className="mt-3">
