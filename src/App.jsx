@@ -169,6 +169,16 @@ export default function App() {
           <p>FabCompress — Compresión 100% local en tu navegador</p>
           <p>Tus imágenes nunca salen de tu dispositivo</p>
           <p className="mt-3">
+            <a
+              href="https://buymeacoffee.com/mozta"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full border border-gray-400/30 text-gray-400 hover:border-fab-500/50 hover:text-fab-400 transition-all duration-200 text-xs"
+            >
+              Si te fue útil, puedes invitarme un café ☕ 
+            </a>
+          </p>
+          <p className="mt-3">
             Desarrollada con ❤️ by{' '}
             <a
               href="https://github.com/Mozta"
