@@ -114,7 +114,7 @@ export default function ImageCard({ item, index, onRemove }) {
         {isPending && (
           <div className="flex items-center gap-2 text-sm">
             <span className="text-gray-400">{formatFileSize(file.size)}</span>
-            <span className="text-gray-600 text-xs">• Lista para comprimir</span>
+            <span className="text-gray-500 text-xs">• Lista para comprimir</span>
           </div>
         )}
 

@@ -63,7 +63,7 @@ export default function Controls({ settings, onSettingsChange, onCompress, image
           onChange={(e) => handleChange('quality', parseInt(e.target.value))}
           className="w-full"
         />
-        <div className="flex justify-between text-xs text-gray-500 mt-1">
+        <div className="flex justify-between text-xs text-gray-400 mt-1">
           <span>Más compresión</span>
           <span>Más calidad</span>
         </div>
@@ -95,7 +95,7 @@ export default function Controls({ settings, onSettingsChange, onCompress, image
 
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <label className="text-gray-500 text-xs mb-1 block">Ancho máx.</label>
+            <label className="text-gray-400 text-xs mb-1 block">Ancho máx.</label>
             <input
               type="number"
               min="100"
@@ -107,7 +107,7 @@ export default function Controls({ settings, onSettingsChange, onCompress, image
             />
           </div>
           <div>
-            <label className="text-gray-500 text-xs mb-1 block">Alto máx.</label>
+            <label className="text-gray-400 text-xs mb-1 block">Alto máx.</label>
             <input
               type="number"
               min="100"
@@ -154,7 +154,7 @@ export default function Controls({ settings, onSettingsChange, onCompress, image
         className={`
           w-full py-3 px-4 rounded-xl font-semibold transition-all duration-300
           ${imageCount === 0 || isProcessing
-            ? 'bg-surface-600 text-gray-500 cursor-not-allowed disabled-btn'
+            ? 'bg-surface-700 text-gray-500 cursor-not-allowed disabled-btn'
             : 'bg-gradient-to-r from-fab-500 to-fab-600 text-white hover:from-fab-400 hover:to-fab-500 shadow-lg shadow-fab-500/25 hover:shadow-fab-400/40 hover:scale-[1.02] active:scale-[0.98]'
           }
         `}

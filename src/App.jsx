@@ -96,11 +96,49 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-surface-900 text-white">
-      {/* Background decorations */}
+      {/* Advanced textured background */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-fab-500/5 rounded-full blur-3xl animate-float-slow" />
-        <div className="absolute top-1/2 -left-40 w-96 h-96 bg-fab-600/5 rounded-full blur-3xl animate-float-medium" />
-        <div className="absolute -bottom-20 right-1/3 w-72 h-72 bg-fab-400/5 rounded-full blur-3xl animate-float-fast" />
+        {/* Grid pattern overlay */}
+        <div 
+          className="absolute inset-0 opacity-[0.08]"
+          style={{
+            backgroundImage: `
+              linear-gradient(to right, rgba(246, 9, 68, 0.3) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(246, 9, 68, 0.3) 1px, transparent 1px)
+            `,
+            backgroundSize: '80px 80px'
+          }}
+        />
+        
+        {/* Diagonal grid overlay */}
+        <div 
+          className="absolute inset-0 opacity-[0.06]"
+          style={{
+            backgroundImage: `
+              repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(246, 9, 68, 0.4) 40px, rgba(246, 9, 68, 0.4) 41px),
+              repeating-linear-gradient(-45deg, transparent, transparent 40px, rgba(246, 9, 68, 0.4) 40px, rgba(246, 9, 68, 0.4) 41px)
+            `
+          }}
+        />
+
+        {/* Gradient mesh layers */}
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-fab-500/[0.08] via-transparent to-transparent" />
+        <div className="absolute bottom-0 right-0 w-full h-full bg-gradient-to-tl from-fab-600/[0.08] via-transparent to-transparent" />
+        
+        {/* Large geometric shapes */}
+        <div className="absolute -top-40 -right-40 w-[600px] h-[600px] bg-fab-500/[0.12] rounded-full blur-3xl animate-float-slow" />
+        <div className="absolute top-1/2 -left-60 w-[500px] h-[500px] bg-fab-600/[0.15] rounded-full blur-3xl animate-float-medium" />
+        <div className="absolute -bottom-32 right-1/4 w-[450px] h-[450px] bg-fab-400/[0.12] rounded-full blur-3xl animate-float-fast" />
+        
+        {/* Noise texture overlay */}
+        <div 
+          className="absolute inset-0 opacity-[0.04]"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+            backgroundRepeat: 'repeat',
+            mixBlendMode: 'overlay'
+          }}
+        />
       </div>
 
       <div className="relative max-w-6xl mx-auto px-4 pb-12">
@@ -127,18 +165,18 @@ export default function App() {
         </div>
 
         {/* Footer */}
-        <footer className="mt-16 text-center text-gray-600 text-xs space-y-2">
+        <footer className="mt-16 text-center text-gray-400 text-xs space-y-2">
           <p>FabCompress — Compresión 100% local en tu navegador</p>
-          <p>Tus imágenes nunca salen de tu dispositivo 🔒</p>
+          <p>Tus imágenes nunca salen de tu dispositivo</p>
           <p className="mt-3">
-            Herramienta creada para{' '}
+            Desarrollada con ❤️ by{' '}
             <a
-              href="https://fabacademy.org"
+              href="https://github.com/Mozta"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-fab-500 hover:text-fab-400 underline underline-offset-2 transition-colors"
+              className="text-fab-500 hover:text-fab-400 underline underline-offset-2 transition-colors font-medium"
             >
-              Fab Academy
+              Mozta
             </a>
           </p>
         </footer>
