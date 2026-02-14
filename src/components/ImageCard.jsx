@@ -1,7 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import { formatFileSize } from '../utils/compressor';
+import { useLanguage } from '../i18n/LanguageContext';
 
 export default function ImageCard({ item, index, onRemove }) {
+  const { t } = useLanguage();
   const { file, result, status } = item;
   const isProcessing = status === 'processing';
   const isDone = status === 'done';
@@ -60,8 +62,8 @@ export default function ImageCard({ item, index, onRemove }) {
             onRemove?.(item.id);
           }}
           className="absolute top-2 left-2 z-10 w-7 h-7 rounded-full bg-surface-900/70 backdrop-blur-md border border-surface-500/40 flex items-center justify-center text-gray-400 hover:text-red-400 hover:bg-red-500/20 hover:border-red-500/40 transition-all duration-200 opacity-0 group-hover/card:opacity-100 active:scale-90"
-          aria-label="Eliminar imagen"
-          title="Eliminar"
+          aria-label={t('imageCard.removeAria')}
+          title={t('imageCard.removeTitle')}
         >
           <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -87,7 +89,7 @@ export default function ImageCard({ item, index, onRemove }) {
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
               </svg>
-              <span className="text-gray-300 text-sm">Comprimiendo...</span>
+              <span className="text-gray-300 text-sm">{t('imageCard.compressing')}</span>
             </div>
           </div>
         )}
@@ -114,7 +116,7 @@ export default function ImageCard({ item, index, onRemove }) {
         {isPending && (
           <div className="flex items-center gap-2 text-sm">
             <span className="text-gray-400">{formatFileSize(file.size)}</span>
-            <span className="text-gray-500 text-xs">• Lista para comprimir</span>
+            <span className="text-gray-500 text-xs">• {t('imageCard.readyToCompress')}</span>
           </div>
         )}
 
@@ -125,7 +127,7 @@ export default function ImageCard({ item, index, onRemove }) {
         )}
 
         {isError && (
-          <p className="text-red-400 text-xs">Error al comprimir esta imagen</p>
+          <p className="text-red-400 text-xs">{t('imageCard.compressionError')}</p>
         )}
 
         {isDone && (
@@ -152,7 +154,7 @@ export default function ImageCard({ item, index, onRemove }) {
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
               </svg>
-              Descargar
+              {t('imageCard.download')}
             </button>
           </>
         )}

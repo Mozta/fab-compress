@@ -1,19 +1,25 @@
 import { useState } from 'react';
-
-const QUALITY_PRESETS = [
-  { label: 'Bajo', value: 80, description: 'Mínima compresión, máxima calidad' },
-  { label: 'Alto', value: 60, description: 'Buen balance calidad/tamaño' },
-  { label: 'Extremo', value: 40, description: 'Máxima compresión, archivos pequeños' },
-];
+import { useLanguage } from '../i18n/LanguageContext';
 
 export default function Controls({ settings, onSettingsChange, onCompress, imageCount, isProcessing, progress }) {
+  const { t } = useLanguage();
   const [showDimHint, setShowDimHint] = useState(false);
 
   const handleChange = (key, value) => {
     onSettingsChange({ ...settings, [key]: value });
   };
 
+  const QUALITY_PRESETS = [
+    { label: t('controls.presetLow'), value: 80, description: t('controls.presetLowDesc') },
+    { label: t('controls.presetHigh'), value: 60, description: t('controls.presetHighDesc') },
+    { label: t('controls.presetExtreme'), value: 40, description: t('controls.presetExtremeDesc') },
+  ];
+
   const activePreset = QUALITY_PRESETS.find((p) => p.value === settings.quality);
+
+  const compressLabel = imageCount > 0
+    ? `${t('controls.compress')} (${imageCount} ${imageCount > 1 ? t('controls.images') : t('controls.image')})`
+    : t('controls.compress');
 
   return (
     <div className="bg-surface-800/80 backdrop-blur-xl border border-surface-600/50 rounded-2xl p-6 space-y-5">
@@ -22,12 +28,12 @@ export default function Controls({ settings, onSettingsChange, onCompress, image
           <path strokeLinecap="round" strokeLinejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
           <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
         </svg>
-        Configuración
+        {t('controls.settings')}
       </h2>
 
       {/* Quality presets */}
       <div>
-        <label className="text-gray-300 text-sm font-medium block mb-2">Preset de calidad</label>
+        <label className="text-gray-300 text-sm font-medium block mb-2">{t('controls.qualityPreset')}</label>
         <div className="grid grid-cols-3 gap-1.5">
           {QUALITY_PRESETS.map((preset) => (
             <button
@@ -51,7 +57,7 @@ export default function Controls({ settings, onSettingsChange, onCompress, image
       {/* Quality slider */}
       <div>
         <div className="flex justify-between items-center mb-2">
-          <label className="text-gray-300 text-sm font-medium">Calidad</label>
+          <label className="text-gray-300 text-sm font-medium">{t('controls.quality')}</label>
           <span className="text-fab-400 font-mono text-sm font-bold">{settings.quality}%</span>
         </div>
         <input
@@ -64,21 +70,21 @@ export default function Controls({ settings, onSettingsChange, onCompress, image
           className="w-full"
         />
         <div className="flex justify-between text-xs text-gray-400 mt-1">
-          <span>Más compresión</span>
-          <span>Más calidad</span>
+          <span>{t('controls.moreCompression')}</span>
+          <span>{t('controls.moreQuality')}</span>
         </div>
       </div>
 
       {/* Max dimensions */}
       <div>
         <div className="flex items-center gap-1.5 mb-2">
-          <label className="text-gray-300 text-sm font-medium">Dimensiones máximas (px)</label>
+          <label className="text-gray-300 text-sm font-medium">{t('controls.maxDimensions')}</label>
           <button
             className="text-gray-500 hover:text-fab-400 transition-colors relative"
             onMouseEnter={() => setShowDimHint(true)}
             onMouseLeave={() => setShowDimHint(false)}
             onClick={() => setShowDimHint((v) => !v)}
-            aria-label="Información sobre dimensiones"
+            aria-label={t('controls.dimInfoAria')}
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -89,13 +95,13 @@ export default function Controls({ settings, onSettingsChange, onCompress, image
         {/* Tooltip */}
         {showDimHint && (
           <div className="mb-3 px-3 py-2 rounded-lg bg-fab-500/10 border border-fab-500/20 text-xs text-fab-300 leading-relaxed animate-fade-in-up" style={{ animationDuration: '200ms' }}>
-            💡 1920px es ideal para documentación web del FabAcademy. Para imágenes de detalle, usa 2560px o más.
+            {t('controls.dimHint')}
           </div>
         )}
 
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <label className="text-gray-400 text-xs mb-1 block">Ancho máx.</label>
+            <label className="text-gray-400 text-xs mb-1 block">{t('controls.maxWidth')}</label>
             <input
               type="number"
               min="100"
@@ -107,7 +113,7 @@ export default function Controls({ settings, onSettingsChange, onCompress, image
             />
           </div>
           <div>
-            <label className="text-gray-400 text-xs mb-1 block">Alto máx.</label>
+            <label className="text-gray-400 text-xs mb-1 block">{t('controls.maxHeight')}</label>
             <input
               type="number"
               min="100"
@@ -123,7 +129,7 @@ export default function Controls({ settings, onSettingsChange, onCompress, image
 
       {/* Output format */}
       <div>
-        <label className="text-gray-300 text-sm font-medium block mb-2">Formato de salida</label>
+        <label className="text-gray-300 text-sm font-medium block mb-2">{t('controls.outputFormat')}</label>
         <div className="grid grid-cols-3 gap-2">
           {[
             { value: 'image/jpeg', label: 'JPEG' },
@@ -165,10 +171,10 @@ export default function Controls({ settings, onSettingsChange, onCompress, image
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
             </svg>
-            Comprimiendo {progress.total > 0 ? `${progress.current}/${progress.total}` : '...'}
+            {t('controls.compressing')} {progress.total > 0 ? `${progress.current}/${progress.total}` : '...'}
           </span>
         ) : (
-          `Comprimir ${imageCount > 0 ? `(${imageCount} imagen${imageCount > 1 ? 'es' : ''})` : ''}`
+          compressLabel
         )}
       </button>
     </div>

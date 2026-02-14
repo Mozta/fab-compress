@@ -1,4 +1,22 @@
+import { useState, useRef, useEffect } from 'react';
+import { useLanguage } from '../i18n/LanguageContext';
+
 export default function Header({ darkMode, onToggleDarkMode }) {
+  const { t, language, setLanguage, languages } = useLanguage();
+  const [showLangMenu, setShowLangMenu] = useState(false);
+  const langRef = useRef(null);
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handleClick = (e) => {
+      if (langRef.current && !langRef.current.contains(e.target)) {
+        setShowLangMenu(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
+  }, []);
+
   return (
     <header className="flex items-center justify-between py-8 md:py-12">
       <div className="flex-1" />
@@ -16,16 +34,52 @@ export default function Header({ darkMode, onToggleDarkMode }) {
           </h1>
         </div>
         <p className="text-gray-400 text-sm md:text-base max-w-md mx-auto">
-          Comprime y optimiza tus imágenes directamente en el navegador para tu documentación del FabAcademy
+          {t('header.subtitle')}
         </p>
       </div>
 
-      <div className="flex-1 flex justify-end">
+      <div className="flex-1 flex justify-end gap-2">
+        {/* Language selector */}
+        <div className="relative" ref={langRef}>
+          <button
+            onClick={() => setShowLangMenu((v) => !v)}
+            className="relative w-11 h-11 rounded-xl bg-surface-700 hover:bg-surface-600 border border-surface-500/50 flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 text-lg"
+            aria-label={t('language.label')}
+            title={t('language.label')}
+          >
+            {languages.find((l) => l.code === language)?.flag || '🌐'}
+          </button>
+
+          {/* Dropdown */}
+          {showLangMenu && (
+            <div className="absolute right-0 top-full mt-2 bg-surface-700 border border-surface-500/50 rounded-xl overflow-hidden shadow-xl shadow-black/30 z-50 min-w-[140px] animate-fade-in-up" style={{ animationDuration: '150ms' }}>
+              {languages.map((lang) => (
+                <button
+                  key={lang.code}
+                  onClick={() => {
+                    setLanguage(lang.code);
+                    setShowLangMenu(false);
+                  }}
+                  className={`w-full px-4 py-2.5 text-left text-sm flex items-center gap-2.5 transition-colors duration-150 ${
+                    language === lang.code
+                      ? 'bg-fab-500/20 text-fab-400'
+                      : 'text-gray-300 hover:bg-surface-600 hover:text-white'
+                  }`}
+                >
+                  <span className="text-base">{lang.flag}</span>
+                  <span>{lang.label}</span>
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Dark mode toggle */}
         <div className="relative group/toggle">
           <button
             onClick={onToggleDarkMode}
             className="relative w-11 h-11 rounded-xl bg-surface-700 hover:bg-surface-600 border border-surface-500/50 flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95"
-            aria-label={darkMode ? 'Activar modo claro' : 'Activar modo oscuro'}
+            aria-label={darkMode ? t('header.lightModeAria') : t('header.darkModeAria')}
           >
             {/* Sun icon */}
             <svg
@@ -58,7 +112,7 @@ export default function Header({ darkMode, onToggleDarkMode }) {
           </button>
           {/* Hover tooltip */}
           <span className="absolute -bottom-8 right-0 px-2 py-1 rounded-md bg-surface-700 border border-surface-500/50 text-[10px] text-gray-400 whitespace-nowrap opacity-0 group-hover/toggle:opacity-100 transition-opacity duration-200 pointer-events-none">
-            {darkMode ? 'Modo claro' : 'Modo oscuro'}
+            {darkMode ? t('header.lightMode') : t('header.darkMode')}
           </span>
         </div>
       </div>

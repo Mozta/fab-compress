@@ -1,6 +1,8 @@
 import { useState, useRef, useCallback } from 'react';
+import { useLanguage } from '../i18n/LanguageContext';
 
 export default function DropZone({ onFilesSelected, disabled }) {
+  const { t } = useLanguage();
   const [isDragging, setIsDragging] = useState(false);
   const inputRef = useRef(null);
   const dragCounter = useRef(0);
@@ -83,10 +85,10 @@ export default function DropZone({ onFilesSelected, disabled }) {
         </div>
 
         <p className="text-gray-300 font-medium mb-1">
-          {isDragging ? '¡Suelta tus imágenes aquí!' : 'Arrastra y suelta tus imágenes'}
+          {isDragging ? t('dropzone.dropHere') : t('dropzone.dragAndDrop')}
         </p>
         <p className="text-gray-500 text-sm">
-          o haz clic para seleccionar • JPG, PNG, WebP, GIF
+          {t('dropzone.clickToSelect')}
         </p>
       </div>
     </div>

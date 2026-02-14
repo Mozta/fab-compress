@@ -4,10 +4,12 @@ import DropZone from './components/DropZone';
 import Controls from './components/Controls';
 import ResultsGrid from './components/ResultsGrid';
 import { compressImage } from './utils/compressor';
+import { useLanguage } from './i18n/LanguageContext';
 
 let nextId = 0;
 
 export default function App() {
+  const { t } = useLanguage();
   const [darkMode, setDarkMode] = useState(() => {
     const saved = localStorage.getItem('fabcompress-theme');
     return saved ? saved === 'dark' : true; // default to dark
@@ -166,9 +168,9 @@ export default function App() {
 
         {/* Footer */}
         <footer className="mt-16 text-center text-gray-400 text-xs space-y-2">
-          <p>FabCompress — Compresión 100% local en tu navegador</p>
-          <p>Tus imágenes nunca salen de tu dispositivo</p>
-          <p className="mt-3">Si te fue útil, puedes invitarme un café</p>
+          <p>{t('footer.tagline')}</p>
+          <p>{t('footer.privacy')}</p>
+          <p className="mt-3">{t('footer.coffee')}</p>
           <p className="mt-2">
             <a
               href="https://www.buymeacoffee.com/mozta"
@@ -183,7 +185,7 @@ export default function App() {
             </a>
           </p>
           <p className="mt-3">
-            Desarrollada con ❤️ by{' '}
+            {t('footer.madeWith')}{' '}
             <a
               href="https://github.com/Mozta"
               target="_blank"
